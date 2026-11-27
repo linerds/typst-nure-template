@@ -16,6 +16,22 @@
 #assert.eq(is-empty((1,)), false)
 #assert.eq(is-empty(0), false)
 #assert.eq(gender-get(((name: "Франко І. Я."),)), none)
+#assert.eq(group-form((group: "24-1", edu-program: "КУІБ")), "КУІБ-24-1")
+#assert.eq(group-form((group: "КУІБ-24-1", edu-program: "КУІБ")), "КУІБ-24-1")
+
+// title normalization: list titles join with a space once in work()
+#let list-title-work = work(type: "ЛБ", number: 1, title: ("A", "B"), authors: (author,), mentors: (mentor,))
+#assert.eq(list-title-work.title, "A B")
+#assert.eq(list-title-work.document.title, "A B")
+#let special-title-work = work(
+  type: "ЛБ",
+  number: 2,
+  title: "C# <x> і *вказівники*",
+  authors: (author,),
+  mentors: (mentor,),
+)
+#assert.eq(special-title-work.title, "C# <x> і *вказівники*")
+#assert.eq(special-title-work.subject-name, none)
 
 // built-in university: one field overridden, new program and subject added
 #let w = work(subject: "НовДис", authors: (author,), data: extra)
@@ -109,3 +125,19 @@
 
 == Content
 #lorem(20)
+
+// list title, special characters in title, and omitted subject across layouts
+#report.title-page(list-title-work)
+#report.title-page(list-title-work, layout: "complex")
+#report.title-page(list-title-work, layout: "nure-iki")
+#title-heading(list-title-work)
+
+#report.title-page(special-title-work)
+#report.title-page(special-title-work, layout: "complex")
+#title-heading(special-title-work)
+
+#context {
+  let bodies = query(heading.where(level: 1)).map(h => h.body)
+  assert.eq(bodies.at(1).text, "A B")
+  assert.eq(bodies.at(2).text, "C# <x> і *вказівники*")
+}

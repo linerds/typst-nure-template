@@ -8,7 +8,10 @@
 #dstu-figure(path("fixtures/figures/scheme.svg"), [Borrowed scheme], "go.dev", width: 4cm, label: <borrowed>)
 #dstu-figure(path("fixtures/figures/scheme.svg"), [Unlabelled], width: 4cm)
 
-See @own and @borrowed.
+See @own (page #ref(<own>, form: "page")) and @borrowed.
+
+$ a + b = c $ <eq:sum>
+See @eq:sum (page #ref(<eq:sum>, form: "page")).
 
 #context assert.eq(query(figure).len(), 4)
 #context assert.eq(query(<own>).len(), 1)
