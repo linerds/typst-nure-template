@@ -21,14 +21,14 @@
 /// Корисні фрагменти
 
 /// Рисунок (`fig` = `dstu-figure`): назву файлу обгортаємо в `path()`
-// #fig(path("figures/clojure-logo.png"), [Логотип Clojure], "clojure.org", label: <clojure-logo>)
+// #fig(path("figures/clojure-logo.png"), [Логотип Clojure], "clojure.org", label: <fig:clojure-logo>)
 
 /// Таблиця з .csv (`tab` = `dstu-table`)
 // #tab(
 //   caption: [],
 //   columns: 4,
 //   header: ([], [], [], []),
-//   label: <table>,
+//   label: <tab:results>,
 //   ..csv("assets/table.csv").flatten(),
 // )
 

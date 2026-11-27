@@ -34,7 +34,7 @@
 #show: style.dstu.with(skip: 1)
 
 // 3. Збираємо документ з блоків.
-//    Будь-який слот титулки можна замінити, напр. `footer: [Харків -- 2026]`,
+//    Будь-яку частину титулки можна замінити, напр. `footer: [Харків -- 2026]`,
 //    або взяти інший макет: `layout: "complex"`.
 #report.title-page(w)
 #title-heading(w)
@@ -50,9 +50,9 @@
 #lorem(150)
 
 // Рисунки (`fig` = `dstu-figure`): назву файлу обгортаємо в `path()`, бо рядок шукався б у пакунку
-// #fig(path("figures/scheme.png"), [Схема дослідження], label: <scheme>) // посилання @scheme
+// #fig(path("figures/scheme.png"), [Схема дослідження], label: <fig:scheme>) // посилання @fig:scheme
 // Таблиці (`tab` = `dstu-table`)
-// #tab(caption: [Результати], columns: 2, header: ([Дослід], [Час, с]), label: <results>, [1], [0.42])
+// #tab(caption: [Результати], columns: 2, header: ([Дослід], [Час, с]), label: <tab:results>, [1], [0.42])
 
 === Виконання дослідження
 #lorem(300)

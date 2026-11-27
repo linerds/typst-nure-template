@@ -273,7 +273,7 @@
 /// - columns (int, array): Кількість або ширини колонок
 /// - header (array): Комірки шапки, напр. `([A], [B])`
 /// - note (content, array, none): Примітка або масив приміток у межах таблиці під основною частиною (7.8.2)
-/// - label (label): Мітка для посилань, напр. `<my-table>`
+/// - label (label): Мітка для посилань, напр. `<tab:results>`
 /// - tag (str): Те саме рядком (для сумісності зі старими версіями)
 /// - ..args: Передаються в `table` (комірки, `align`, `stroke`, ...)
 #let dstu-table(caption: none, columns: none, header: none, note: none, label: none, tag: none, ..args) = {

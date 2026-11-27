@@ -6,10 +6,10 @@
 
 | Коротко | Повна назва | Опис |
 | --- | --- | --- |
-| `fig(file, caption, source, note: none, label: none, ..args)` | [`dstu-figure`](#dstu-figurefile-caption-source-note-none-label-none-args) | Рисунок |
-| `tab(caption:, columns:, header:, note: none, label: none, ..args)` | [`dstu-table`](#dstu-tablecaption-columns-header-note-none-label-none-tag-none-args) | Таблиця |
-| `note(..notes)` | [`dstu-note`](#dstu-notenotes) | Примітка |
-| `bib(source, style: "3008", ..)` | [`dstu-bibliography`](#dstu-bibliographysource-style-3008-title-перелік-джерел-посилання-full-true) | Перелік джерел |
+| [`fig(file, caption, source, note: none, label: none, ..args)`](#figfile-caption-source-note-none-label-none-args) | `dstu-figure` | Рисунок |
+| [`tab(caption:, columns:, header:, note: none, label: none, ..args)`](#tabcaption-columns-header-note-none-label-none-tag-none-args) | `dstu-table` | Таблиця |
+| [`note(..notes)`](#notenotes) | `dstu-note` | Примітка |
+| [`bib(source, style: "3008", ..)`](#bibsource-style-3008-title-перелік-джерел-посилання-full-true) | `dstu-bibliography` | Перелік джерел |
 
 Короткі й повні назви -- одні й ті самі функції: аргументи й результат однакові. Див. [Короткі назви](writing.md#короткі-назви).
 
@@ -42,7 +42,7 @@
 ### `style.appendices`
 Оформлення додатків: `#show: style.appendices`. Див. [Додатки](writing.md#додатки).
 
-### Оверрайди: `style.overrides`
+### Перевизначення стилю: `style.overrides`
 Готові show-правила, які перевизначають окремі елементи `style.dstu`. Ставляться після `#show: style.dstu`:
 
 ```typst
@@ -54,7 +54,7 @@
 | Функція | Опис |
 | --- | --- |
 | `style.overrides.plain-heading(numbering: none, alignment: center, weight: "regular", size: 14pt, uppercase: true, pagebreak: false, above: double-spacing, below: double-spacing)` | Заголовки 1-го рівня без номера, по центру, звичайним накресленням, великими літерами й без розриву сторінки; `numbering: auto` лишає нумерацію зі `style.dstu` |
-| `style.overrides.inline-code(font: code-font, size: auto, weight: "regular", fill: none, stroke: none, inset: (x: 0.25em), outset: (y: 0.2em), radius: 2pt)` | Моноширинний інлайн-код (`` `код` ``) замість лапок у Times New Roman; із `fill` або `stroke` загортається в `box` |
+| `style.overrides.inline-code(font: code-font, size: auto, weight: "regular", fill: none, stroke: none, inset: (x: 0.25em), outset: (y: 0.2em), radius: 2pt)` | Моноширинний рядковий код (`` `код` ``) замість лапок у Times New Roman; із `fill` або `stroke` загортається в `box` |
 
 ### Константи
 `style.spacing` (міжрядковий інтервал, для `#v(-spacing)`), `style.indent-size` (абзацний відступ 1,25 см), `style.double-spacing`, `style.code-font` (шрифт коду), `style.ukr-enum` (абетка для нумерації).
@@ -62,10 +62,10 @@
 ## Титулки звітів: `report`
 
 ### `report.title-page(w, layout: "default", header: auto, info: auto, credentials: auto, footer: auto)`
-Титулка звіту з лабораторної, практичної тощо. `layout`: `"default"` (те саме, що `"nure"`), `"complex"` або `"nure-iki"`. Слоти: `auto` -- вміст макета, свій вміст -- заміна, `none` -- порожньо. Див. [Лабораторна](lab.md#титульна-сторінка-reporttitle-page).
+Титулка звіту з лабораторної, практичної тощо. `layout`: `"default"` (те саме, що `"nure"`), `"complex"` або `"nure-iki"`. Частини титулки (`header`, `info`, `credentials`, `footer`): `auto` -- вміст макета, свій вміст -- заміна, `none` -- порожньо. Див. [Лабораторна](lab.md#титульна-сторінка-reporttitle-page).
 
 ### `report.nure.*`, `report.complex.*`, `report.nure-iki.*`
-Вміст слотів кожного макета: `default-header(w)`, `default-info(w)`, `default-credentials(w)`, `default-footer(w)`; та `title-page(w, ...)` конкретного макета.
+Вміст частин кожного макета: `default-header(w)`, `default-info(w)`, `default-credentials(w)`, `default-footer(w)`; та `title-page(w, ...)` конкретного макета.
 
 ### `title-heading(w)`
 Заголовок першого рівня з темою, пронумерований номером роботи.
@@ -92,8 +92,8 @@
 ### `contents(compact-appendices: false, depth: 3)`
 Зміст (4.4, Додаток Б): заголовок «ЗМІСТ», позначка «с.» над номерами сторінок, додатки у вигляді «Додаток А Назва». `depth` -- глибина заголовків (типово 3: розділи, підрозділи й пункти); `compact-appendices: true` приховує підзаголовки додатків.
 
-### `dstu-bibliography(source, style: "3008", title: [Перелік джерел посилання], full: true)`
-Перелік джерел (коротко -- `bib`). `source` -- `path("bibl.yml")` або байти; `style` -- `"3008"`, `"8302"` або власний CSL як байти; `full: false` -- лише процитовані. Див. [Перелік джерел](writing.md#перелік-джерел).
+### `bib(source, style: "3008", title: [Перелік джерел посилання], full: true)`
+Перелік джерел (повна назва -- `dstu-bibliography`). `source` -- `path("bibl.yml")` або байти; `style` -- `"3008"`, `"8302"` або власний CSL як байти; `full: false` -- лише процитовані. Див. [Перелік джерел](writing.md#перелік-джерел).
 
 ### `doc-stats()`
 Підсумки документа: «N с., N табл., N рис., N джерел» (нульові пропускаються).
@@ -103,14 +103,14 @@
 
 ## Таблиці, рисунки й примітки
 
-### `dstu-table(caption:, columns:, header:, note: none, label: none, tag: none, ..args)`
-Скорочення для `figure(table(table.header(..header), ..args), caption: caption)` (ще коротше -- `tab`). `header` -- масив комірок шапки, `note` -- примітка або масив приміток під основною частиною таблиці (7.8.2), `label` -- мітка (`<x>`), `tag` -- те саме рядком (для сумісності); решта передається в `table`. Перенос з «Продовження таблиці» `style.dstu` оформлює для будь-якої таблиці-`figure`. Див. [Таблиці](writing.md#таблиці).
+### `tab(caption:, columns:, header:, note: none, label: none, tag: none, ..args)`
+Скорочення для `figure(table(table.header(..header), ..args), caption: caption)` (повна назва -- `dstu-table`). `header` -- масив комірок шапки, `note` -- примітка або масив приміток під основною частиною таблиці (7.8.2), `label` -- мітка (`<tab:...>`), `tag` -- те саме рядком (для сумісності); решта передається в `table`. Перенос з «Продовження таблиці» `style.dstu` оформлює для будь-якої таблиці-`figure`. Див. [Таблиці](writing.md#таблиці).
 
-### `dstu-figure(file, caption, source, note: none, label: none, ..args)`
-Рисунок з підписом і приміткою про джерело (коротко -- `fig`). `file` -- `path(...)`; `source` (необов'язковий третій аргумент): не вказано або `()` -- без примітки, `none` -- «(рисунок виконано самостійно)», рядок -- «(за даними …)»; `note` -- примітка або масив приміток під зображенням перед назвою (7.5.9, 7.8.2); `label` -- мітка (`<x>`), без неї рисунок без мітки; решта передається в `image`. Є й як `utils.dstu-figure`. Див. [Рисунки](writing.md#рисунки).
+### `fig(file, caption, source, note: none, label: none, ..args)`
+Рисунок з підписом і приміткою про джерело (повна назва -- `dstu-figure`). `file` -- `path(...)`; `source` (необов'язковий третій аргумент): не вказано або `()` -- без примітки, `none` -- «(рисунок виконано самостійно)», рядок -- «(за даними …)»; `note` -- примітка або масив приміток під зображенням перед назвою (7.5.9, 7.8.2); `label` -- мітка (`<fig:...>`), без неї рисунок без мітки; решта передається в `image`. Є й як `utils.dstu-figure`. Див. [Рисунки](writing.md#рисунки).
 
-### `dstu-note(..notes)`
-Примітка або кілька приміток у тексті за ДСТУ 3008:2015 (7.8, 7.1.24; коротко -- `note`): один аргумент дає «Примітка. …», кілька (або масив) -- «Примітка 1. …», «Примітка 2. …»; кегль 12, одинарний інтервал, абзацний відступ, відступ `double-spacing` від тексту. Див. [Примітки](writing.md#примітки).
+### `note(..notes)`
+Примітка або кілька приміток у тексті за ДСТУ 3008:2015 (7.8, 7.1.24; повна назва -- `dstu-note`): один аргумент дає «Примітка. …», кілька (або масив) -- «Примітка 1. …», «Примітка 2. …»; кегль 12, одинарний інтервал, абзацний відступ, відступ `double-spacing` від тексту. Див. [Примітки](writing.md#примітки).
 
 ## Утиліти: `utils`
 

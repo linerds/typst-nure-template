@@ -44,9 +44,9 @@
 
 /// Макет ХНУРЕ титулки звіту з практичної/лабораторної.
 ///
-/// Усі слоти за замовчуванням `auto`, тобто вміст відповідної функції
-/// `default-*`; передайте свій вміст, щоб замінити слот, або `none`, щоб
-/// лишити його порожнім.
+/// Усі частини за замовчуванням `auto`, тобто вміст відповідної функції
+/// `default-*`; передайте свій вміст, щоб замінити частину, або `none`, щоб
+/// лишити її порожньою.
 #let title-page(w, header: auto, info: auto, credentials: auto, footer: auto) = base-title-page(
   if header == auto { default-header(w) } else { header },
   if info == auto { default-info(w) } else { info },
