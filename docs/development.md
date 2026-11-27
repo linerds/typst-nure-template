@@ -69,6 +69,12 @@ diff <(cd /tmp/before && sha256sum *.png) <(cd /tmp/after && sha256sum *.png)
 typstyle -l 120 -i src tests template
 ```
 
+Перезбирати ілюстрації для [Найкращі практики](best-practices.md) після змін стилю:
+
+```sh
+./scripts/render-best-practices.py
+```
+
 ## Версії та релізи
 
 Пакунок дотримується [SemVer](https://semver.org/) у форматі `MAJOR.MINOR.PATCH` (Typst не приймає суфікси пререлізів у `typst.toml`), а кожна випущена версія вважається незмінною:

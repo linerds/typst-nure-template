@@ -147,7 +147,7 @@ def main() -> None:
     for tmpl in sorted((root / "template/default").glob("*.typ")):
         targets[tmpl] = [(f'@local/nure:{old_ver}"', f'@local/nure:{new_ver}"')]
 
-    for doc in ("docs/lab.md", "docs/coursework.md", "docs/reference.md"):
+    for doc in ("docs/lab.md", "docs/coursework.md", "docs/reference.md", "docs/best-practices.md"):
         targets[root / doc] = [
             (f"@local/nure:{old_ver}", f"@local/nure:{new_ver}"),
             (f"@vendor/nure:{old_ver}", f"@vendor/nure:{new_ver}"),
