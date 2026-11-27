@@ -79,9 +79,9 @@
 /// номер пункту завдання "N."
 #let task-num(n) = box(str(n) + ".")
 
-/// поле теми роботи; тема-масив з'єднується, кожен рядок підкреслено на всю ширину
+/// поле теми роботи; кожен рядок підкреслено на всю ширину
 #let title-field(value) = {
-  ruled-field(align(center, if type(value) == array { value.join() } else { value }))
+  ruled-field(align(center, value))
   note[(тема)]
 }
 

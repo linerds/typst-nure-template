@@ -24,7 +24,7 @@
   [
     #pz-lb-title(w.type, number: w.number)
 
-    з навчальної дисципліни "#w.subject-name"\
+    #if w.subject-name != none [з навчальної дисципліни "#w.subject-name"\ ]
     #if w.title != none [з теми "#w.title"\ ]
     #if not is-empty(variant) [\ Варіант №#variant]
   ]

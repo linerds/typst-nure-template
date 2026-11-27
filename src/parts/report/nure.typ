@@ -11,9 +11,9 @@
 ]
 
 #let default-info(w) = [
-  #pz-lb-title(w.type, number: w.number)\
-  з дисципліни: "#w.subject-name"\
-  #if w.title != none [з теми: "#w.title"]
+  #pz-lb-title(w.type, number: w.number)
+  #if w.subject-name != none [\ з дисципліни: "#w.subject-name"]
+  #if w.title != none [\ з теми: "#w.title"]
 ]
 
 #let default-credentials(w) = {

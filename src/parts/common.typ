@@ -19,7 +19,7 @@
 /// Виставляє лічильник заголовків так, щоб тема мала номер роботи: з темою
 /// сам заголовок отримує номер `number`; без теми заголовок не вставляється,
 /// а наступні заголовки нумеруються від `number`.
-/// Тема-рядок обробляється як розмітка.
+/// Для форматування в темі передайте вміст (`title: [...]`); звичайний рядок виводиться як текст.
 #let title-heading(w) = {
   pagebreak(weak: true)
 
@@ -32,8 +32,7 @@
       context counter(heading).update(w.number - 1)
     }
 
-    let title = if type(w.title) == array { w.title.join() } else { w.title }
-    heading(if type(title) == str { eval(title, mode: "markup") } else { title })
+    heading(w.title)
   }
 }
 

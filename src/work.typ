@@ -98,6 +98,8 @@
     a + (edu-program: edu-program)
   })
 
+  let title = if std.type(title) == array { title.join(" ") } else { title }
+
   (
     university: university,
     uni: uni,
@@ -121,7 +123,7 @@
     city: if city != auto { city } else { uni.at("city", default: none) },
     // arguments for `set document`
     document: (
-      title: if std.type(title) == array { title.join(" ") } else { title },
+      title: title,
       author: authors.map(a => a.name),
     ),
   )

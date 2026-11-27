@@ -359,6 +359,10 @@
 
   // Figures and equations with section/appendix numbering
   show ref: it => {
+    if it.form == "page" {
+      return it
+    }
+
     let target = it.element
 
     if target == none {

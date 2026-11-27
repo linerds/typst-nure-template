@@ -1,7 +1,7 @@
 #import "../../helpers.typ": gender-form, gender-get, group-form, is-empty, key-get
 #import "../../utils.typ": bold, ruled-field
-#import "../base.typ": title-page as base-title-page
 #import "../forms.typ": inline-label-line
+#import "../base.typ": title-page as base-title-page
 
 #let caption(body) = {
   v(2pt)
@@ -50,7 +50,6 @@
 
 #let default-info(w) = {
   let variant = w.authors.first().at("variant", default: none)
-  let title = if type(w.title) == array { w.title.join() } else { w.title }
 
   [
     #set par(first-line-indent: 0pt, justify: false, leading: 0.45em)
@@ -62,9 +61,9 @@
       #bold(w.subject-name)
     ]
 
-    #if title != none [
+    #if w.title != none [
       #v(1.0em)
-      Тема заняття: #title
+      Тема заняття: #w.title
     ]
 
     #if not is-empty(variant) [
