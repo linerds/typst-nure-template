@@ -25,22 +25,22 @@ def run(cmd: list[str], *, cwd: Path, env: dict[str, str] | None = None, capture
     return res.stdout.strip() if capture else ""
 
 
-def replace_patterns(path: Path, replacements: list[tuple[str, str]]) -> None:
+def render_replacements(path: Path, replacements: list[tuple[str, str]]) -> str:
     text = path.read_text(encoding="utf-8")
     updated = text
     for old, new in replacements:
         updated = updated.replace(old, new)
     if updated == text:
         sys.exit(f"error: no version references updated in {path}")
-    path.write_text(updated, encoding="utf-8")
+    return updated
 
 
-def update_changelog(path: Path, old_ver: str, new_ver: str) -> bool:
+def render_changelog(path: Path, old_ver: str, new_ver: str) -> str | None:
     if not path.exists():
-        return False
+        return None
     text = path.read_text(encoding="utf-8")
     if re.search(rf"^## \[{re.escape(new_ver)}\]", text, re.M):
-        return False
+        return None
     if "## [Unreleased]" not in text:
         sys.exit(f"error: {path} has neither '## [{new_ver}]' nor '## [Unreleased]'")
 
@@ -53,8 +53,7 @@ def update_changelog(path: Path, old_ver: str, new_ver: str) -> bool:
     )
     if old_unreleased in updated:
         updated = updated.replace(old_unreleased, new_links, 1)
-    path.write_text(updated, encoding="utf-8")
-    return True
+    return updated
 
 
 def find_typst_cmd() -> list[str] | None:
@@ -153,11 +152,17 @@ def main() -> None:
             (f"@vendor/nure:{old_ver}", f"@vendor/nure:{new_ver}"),
         ]
 
+    pending: dict[Path, str] = {}
     for path, reps in targets.items():
-        replace_patterns(path, reps)
+        pending[path] = render_replacements(path, reps)
 
     changelog = root / "CHANGELOG.md"
-    changelog_updated = update_changelog(changelog, old_ver, new_ver)
+    changelog_content = render_changelog(changelog, old_ver, new_ver)
+    if changelog_content is not None:
+        pending[changelog] = changelog_content
+
+    for path, content in pending.items():
+        path.write_text(content, encoding="utf-8")
 
     verify_compilation(root, new_ver)
 
@@ -165,9 +170,7 @@ def main() -> None:
         print("Updated files (--no-commit). Review with: git diff")
         return
 
-    rel_files = [str(p.relative_to(root)) for p in targets]
-    if changelog_updated:
-        rel_files.append("CHANGELOG.md")
+    rel_files = [str(p.relative_to(root)) for p in pending]
     run(["git", "add", "--", *rel_files], cwd=root)
     run(["git", "commit", "-m", f"chore(release): v{new_ver}"], cwd=root)
     run(["git", "tag", "-a", f"v{new_ver}", "-m", f"Release v{new_ver}"], cwd=root)
