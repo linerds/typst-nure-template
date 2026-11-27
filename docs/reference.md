@@ -9,7 +9,7 @@
 | [`fig(file, caption, source, note: none, label: none, ..args)`](#figfile-caption-source-note-none-label-none-args) | `dstu-figure` | Рисунок |
 | [`tab(caption:, columns:, header:, note: none, label: none, ..args)`](#tabcaption-columns-header-note-none-label-none-tag-none-args) | `dstu-table` | Таблиця |
 | [`note(..notes)`](#notenotes) | `dstu-note` | Примітка |
-| [`bib(source, style: "3008", ..)`](#bibsource-style-3008-title-перелік-джерел-посилання-full-true) | `dstu-bibliography` | Перелік джерел |
+| [`bib(source, style: "3008", ..)`](#bibsource-style-3008-title-перелік-джерел-посилання-full-false) | `dstu-bibliography` | Перелік джерел |
 
 Короткі й повні назви -- одні й ті самі функції: аргументи й результат однакові. Див. [Короткі назви](writing.md#короткі-назви).
 
@@ -65,7 +65,7 @@
 Титулка звіту з лабораторної, практичної тощо. `layout`: `"default"` (те саме, що `"nure"`), `"complex"` або `"nure-iki"`. Частини титулки (`header`, `info`, `credentials`, `footer`): `auto` -- вміст макета, свій вміст -- заміна, `none` -- порожньо. Див. [Лабораторна](lab.md#титульна-сторінка-reporttitle-page).
 
 ### `report.nure.*`, `report.complex.*`, `report.nure-iki.*`
-Вміст частин кожного макета: `default-header(w)`, `default-info(w)`, `default-credentials(w)`, `default-footer(w)`; та `title-page(w, ...)` конкретного макета.
+Вміст частин кожного макета: `default-header(w)`, `default-info(w)`, `default-credentials(w)`, `default-footer(w)`.
 
 ### `title-heading(w)`
 Заголовок першого рівня з темою, пронумерований номером роботи.
@@ -92,8 +92,8 @@
 ### `contents(compact-appendices: false, depth: 3)`
 Зміст (4.4, Додаток Б): заголовок «ЗМІСТ», позначка «с.» над номерами сторінок, додатки у вигляді «Додаток А Назва». `depth` -- глибина заголовків (типово 3: розділи, підрозділи й пункти); `compact-appendices: true` приховує підзаголовки додатків.
 
-### `bib(source, style: "3008", title: [Перелік джерел посилання], full: true)`
-Перелік джерел (повна назва -- `dstu-bibliography`). `source` -- `path("bibl.yml")` або байти; `style` -- `"3008"`, `"8302"` або власний CSL як байти; `full: false` -- лише процитовані. Див. [Перелік джерел](writing.md#перелік-джерел).
+### `bib(source, style: "3008", title: [Перелік джерел посилання], full: false)`
+Перелік джерел (повна назва -- `dstu-bibliography`). `source` -- `path("bibl.yml")` або байти; `style` -- `"3008"`, `"8302"` або власний CSL як байти; `full: true` -- включати й непроцитовані. Див. [Перелік джерел](writing.md#перелік-джерел).
 
 ### `doc-stats()`
 Підсумки документа: «N с., N табл., N рис., N джерел» (нульові пропускаються).
