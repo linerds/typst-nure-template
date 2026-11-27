@@ -1,5 +1,4 @@
 #import "../../helpers.typ": gender-form, gender-get, group-form, is-empty, key-get, pz-lb-title
-#import "../base.typ": title-page as base-title-page
 
 // Default content for each `title-page` slot, specific to the NURE layout.
 // Builders are standalone so they can be reused or overridden individually;
@@ -41,15 +40,3 @@
 }
 
 #let default-footer(w) = if w.city != none [#w.city -- #w.year] else [#w.year]
-
-/// Макет ХНУРЕ титулки звіту з практичної/лабораторної.
-///
-/// Усі частини за замовчуванням `auto`, тобто вміст відповідної функції
-/// `default-*`; передайте свій вміст, щоб замінити частину, або `none`, щоб
-/// лишити її порожньою.
-#let title-page(w, header: auto, info: auto, credentials: auto, footer: auto) = base-title-page(
-  if header == auto { default-header(w) } else { header },
-  if info == auto { default-info(w) } else { info },
-  if credentials == auto { default-credentials(w) } else { credentials },
-  if footer == auto { default-footer(w) } else { footer },
-)

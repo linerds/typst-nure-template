@@ -1,7 +1,6 @@
 #import "../../helpers.typ": gender-form, gender-get, group-form, is-empty, key-get
 #import "../../utils.typ": bold, ruled-field
 #import "../forms.typ": inline-label-line
-#import "../base.typ": title-page as base-title-page
 
 #let caption(body) = {
   v(2pt)
@@ -131,16 +130,3 @@
   #set par(first-line-indent: 0pt, justify: false)
   #w.year р.
 ]
-
-/// Макет "nure-iki" титулки звіту з практичної/лабораторної за методичними
-/// рекомендаціями кафедри інфокомунікаційної інженерії ім. В. В. Поповського (2024).
-///
-/// Усі частини за замовчуванням `auto`, тобто вміст відповідної функції
-/// `default-*`; передайте свій вміст, щоб замінити частину, або `none`, щоб
-/// лишити її порожньою.
-#let title-page(w, header: auto, info: auto, credentials: auto, footer: auto) = base-title-page(
-  if header == auto { default-header(w) } else { header },
-  if info == auto { default-info(w) } else { info },
-  if credentials == auto { default-credentials(w) } else { credentials },
-  if footer == auto { default-footer(w) } else { footer },
-)
