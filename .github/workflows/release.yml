@@ -9,8 +9,16 @@ permissions:
   contents: write
 
 jobs:
+  test:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/typst.yml
+
   release:
+    needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -31,51 +39,6 @@ jobs:
             exit 1
           fi
           echo "PKG_VERSION=$pkg_version" >> "$GITHUB_ENV"
-
-      - name: Check templates target this version
-        run: |
-          grep -Eq "^nure *= *\{ *version *= *\"$PKG_VERSION\"" template/mise/.mise/config.toml \
-            || { echo "::error::template/mise/.mise/config.toml: nure tool version is not $PKG_VERSION"; exit 1; }
-          for file in template/mise/src/*.typ; do
-            if grep -q '@vendor/nure:' "$file" && ! grep -q "@vendor/nure:$PKG_VERSION\"" "$file"; then
-              echo "::error::$file imports a nure version other than $PKG_VERSION"
-              exit 1
-            fi
-          done
-          for file in template/default/*.typ; do
-            if grep -q '@local/nure:' "$file" && ! grep -q "@local/nure:$PKG_VERSION\"" "$file"; then
-              echo "::error::$file imports a nure version other than $PKG_VERSION"
-              exit 1
-            fi
-          done
-
-      - name: Compile template fixtures
-        run: |
-          mkdir -p build
-          for test in tests/*.typ; do
-            name=$(basename "$test" .typ)
-            typst compile --root . "$test" "build/$name.pdf"
-          done
-
-      - name: Compare constructor documents with recipes
-        run: |
-          status=0
-          for test in tests/constructor-*.typ; do
-            name=$(basename "$test" .typ)
-            recipe=${name#constructor-}
-            [ -f "tests/$recipe.typ" ] || continue
-            for doc in "$name" "$recipe"; do
-              mkdir -p "build/png/$doc"
-              typst compile --root . --ppi 72 "tests/$doc.typ" "build/png/$doc/p{0p}.png"
-            done
-            if diff <(cd "build/png/$recipe" && sha256sum *.png) <(cd "build/png/$name" && sha256sum *.png); then
-              echo "$name renders identically to $recipe"
-            else
-              echo "::error::$name differs from $recipe"
-              status=1
-            fi
-          done
-          exit $status
 
       - name: Build release archive
         run: |

@@ -3,6 +3,7 @@ name: Typst templates
 on:
   push:
   pull_request:
+  workflow_call:
 
 permissions:
   contents: read
@@ -10,12 +11,18 @@ permissions:
 jobs:
   compile-templates:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        typst-version: ["0.15.0", "latest"]
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Install Typst
         uses: typst-community/setup-typst@v4
+        with:
+          typst-version: ${{ matrix.typst-version }}
 
       - name: Compile template fixtures
         run: |
@@ -80,6 +87,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: typst-template-fixtures
+          name: typst-template-fixtures-${{ matrix.typst-version }}
           path: build/*.pdf
           if-no-files-found: ignore
