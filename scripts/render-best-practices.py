@@ -531,7 +531,7 @@ $ f(1.5; 2.5) = 0.85 dot beta $
   numbering: none,
 )
 
-#bib(path("bibl.yml"), style: "3008")
+#bib(path("bibl.yml"), style: "3008", full: true)
 
 #show: style.appendices
 = Знімки екрана
