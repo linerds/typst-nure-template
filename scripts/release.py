@@ -13,7 +13,7 @@ import tomllib
 from pathlib import Path
 
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
-REPO_URL = "https://github.com/beauloxe/typst-nure-template"
+REPO_URL = "https://github.com/linerds/typst-nure-template"
 
 
 def run(cmd: list[str], *, cwd: Path, env: dict[str, str] | None = None, capture: bool = False) -> str:

@@ -19,7 +19,7 @@
 Потрібні [mise](https://mise.jdx.dev/getting-started.html) і `git`. Typst та все інше mise встановить сам.
 
 ```sh
-git clone --depth 1 -b v0.3.0 https://github.com/beauloxe/typst-nure-template.git nure-template
+git clone --depth 1 -b v0.3.0 https://github.com/linerds/typst-nure-template.git nure-template
 cp -r nure-template/template/mise lb1   # Windows (PowerShell): Copy-Item -Recurse nure-template\template\mise lb1
 cd lb1
 mise trust
@@ -100,11 +100,3 @@ gender = "m"
 | [Розробка](docs/development.md) | Структура репозиторію, тести, CI |
 
 Потрібен Typst 0.15 або новіший (mise встановлює потрібну версію сам).
-
-## Подяки
-
-Проєкт продовжує [typst_nure_template](https://github.com/linerds/typst_nure_template). Дякуємо його авторам: unexplrd, Anton Bilous, Sytnyk Yehor, pencelheimer, ilyaoc, dxrknesss, bosiiandgolii, sekomi.
-
-## Ліцензія
-
-[GPL-3.0](LICENSE)

@@ -8,7 +8,7 @@
 
 ## [0.3.0] - 2026-11-27
 
-Перший реліз `beauloxe/typst-nure-template` відносно `0.1.1` із [`linerds/typst_nure_template`](https://github.com/linerds/typst_nure_template): закрито раніше не покриті вимоги [ДСТУ 3008:2015](https://github.com/beauloxe/typst-nure-template/blob/v0.3.0/docs/dstu.md), додано конструктор документів із блоків і релізну дистрибуцію через `mise`. Інструкція переходу для наявних робіт — у [docs/migration.md](https://github.com/beauloxe/typst-nure-template/blob/v0.3.0/docs/migration.md).
+Перший реліз `linerds/typst-nure-template` відносно `0.1.1` із [`linerds/typst_nure_template`](https://github.com/linerds/typst_nure_template): закрито раніше не покриті вимоги [ДСТУ 3008:2015](https://github.com/linerds/typst-nure-template/blob/v0.3.0/docs/dstu.md), додано конструктор документів із блоків і релізну дистрибуцію через `mise`. Інструкція переходу для наявних робіт — у [docs/migration.md](https://github.com/linerds/typst-nure-template/blob/v0.3.0/docs/migration.md).
 
 ### Додано
 
@@ -18,7 +18,7 @@
   - пояснення символів «де ...» під формулами з нового рядка без абзацного відступу через `utils.noindent` (п. 7.10.6);
   - наскрізна нумерація рисунків, таблиць і формул через `style.dstu.with(section-numbering: false)` (п. 7.5.6, 7.6.4, 7.10.3);
   - сторінка змісту (`contents`): позначка «с.» над номерами сторінок, параметр глибини `depth` (типово 3 рівні) та відображення додатків у вигляді «Додаток А Назва» (п. 4.4.1, 4.4.2, Додаток Б);
-  - зведена таблиця відповідності стандарту в [docs/dstu.md](https://github.com/beauloxe/typst-nure-template/blob/v0.3.0/docs/dstu.md).
+  - зведена таблиця відповідності стандарту в [docs/dstu.md](https://github.com/linerds/typst-nure-template/blob/v0.3.0/docs/dstu.md).
 - **Складання документа з блоків (конструктор):** `work()` та окремі блоки (`report.title-page`, `title-heading`, `cw.*`, `cw-v2.*`, `contents`, `doc-stats`, `dstu-bibliography`, `forms.*`), щоб збирати роботу посторінково й підміняти окремі сторінки без переписування шаблону. Готові рецепти `pz-lb`, `coursework` і `coursework-v2` збережено поверх тих самих блоків.
 - **Макет титульної сторінки `nure-iki`** для звітів (додатково до `nure` та `complex`).
 - **Короткі псевдоніми та поля форм:** `fig` (`dstu-figure`), `tab` (`dstu-table`), `bib` (`dstu-bibliography`), `note` (`dstu-note`), а також `utils.ruled-field` для лінійованих полів форм.
@@ -41,7 +41,7 @@
   - **сторінка змісту і рядковий код:** у змісті задано фіксований відступ `1.5em`, а вбудований код масштабується відносно поточного кегля (`1.25em`) замість жорстких `14pt`.
 - **Довгі лістинги (`figure(raw(...))`):** автоматично розриваються між сторінками з підписами «Продовження лістингу N» / «Кінець лістингу N» замість переносу цілком і виходу за нижнє поле.
 - **Бібліографія:** `dstu-bibliography` приймає `style` і `title` як іменовані параметри (`dstu-bibliography(path("bibl.yml"), style: "3008")`).
-- **Репозиторій і встановлення:** пакет перенесено на `github.com/beauloxe/typst-nure-template`, встановлення йде за версійними тегами (`v0.3.0`).
+- **Репозиторій і встановлення:** пакет перенесено на `github.com/linerds/typst-nure-template`, встановлення йде за версійними тегами (`v0.3.0`).
 
 ### Виправлено
 
@@ -58,5 +58,5 @@
 - **Ламаюче:** `template/default/utils.typ` і автоматична генерація міток рисунків із назви файлу (`utils.img-label`, `utils.path-str`, `utils.stem`, `utils.parent-dir`) — мітку тепер задають явно через `label:` у `dstu-figure`/`fig`.
 - Застарілий шаблон `template/unexplrd-mise` (замінено на `template/mise`).
 
-[Unreleased]: https://github.com/beauloxe/typst-nure-template/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/beauloxe/typst-nure-template/releases/tag/v0.3.0
+[Unreleased]: https://github.com/linerds/typst-nure-template/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/linerds/typst-nure-template/releases/tag/v0.3.0

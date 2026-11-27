@@ -1,6 +1,6 @@
 # Робота з шаблоном ХНУРЕ
 
-Тека роботи для [typst-nure-template](https://github.com/beauloxe/typst-nure-template). Typst, інструменти й пакунок встановлює [mise](https://mise.jdx.dev/).
+Тека роботи для [typst-nure-template](https://github.com/linerds/typst-nure-template). Typst, інструменти й пакунок встановлює [mise](https://mise.jdx.dev/).
 
 ## Початок
 
@@ -35,8 +35,8 @@ mise run watch
 
 ## Документація
 
-- [Лабораторна чи практична](https://github.com/beauloxe/typst-nure-template/blob/main/docs/lab.md)
-- [Курсова](https://github.com/beauloxe/typst-nure-template/blob/main/docs/coursework.md)
-- [Оформлення тексту](https://github.com/beauloxe/typst-nure-template/blob/main/docs/writing.md): рисунки, таблиці, код, джерела, додатки
-- [Дані роботи](https://github.com/beauloxe/typst-nure-template/blob/main/docs/data.md): усі поля `doc.toml`, власні дисципліни
-- [Встановлення й налаштування редактора](https://github.com/beauloxe/typst-nure-template/blob/main/docs/install.md)
+- [Лабораторна чи практична](https://github.com/linerds/typst-nure-template/blob/main/docs/lab.md)
+- [Курсова](https://github.com/linerds/typst-nure-template/blob/main/docs/coursework.md)
+- [Оформлення тексту](https://github.com/linerds/typst-nure-template/blob/main/docs/writing.md): рисунки, таблиці, код, джерела, додатки
+- [Дані роботи](https://github.com/linerds/typst-nure-template/blob/main/docs/data.md): усі поля `doc.toml`, власні дисципліни
+- [Встановлення й налаштування редактора](https://github.com/linerds/typst-nure-template/blob/main/docs/install.md)

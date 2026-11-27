@@ -15,7 +15,7 @@
 1. Встановіть [mise](https://mise.jdx.dev/getting-started.html) (і `git`, щоб скопіювати шаблон).
 2. Скопіюйте шаблон роботи:
    ```sh
-   git clone --depth 1 -b v0.3.0 https://github.com/beauloxe/typst-nure-template.git nure-template
+   git clone --depth 1 -b v0.3.0 https://github.com/linerds/typst-nure-template.git nure-template
    cp -r nure-template/template/mise lb1
    ```
    На Windows (PowerShell) замість `cp`: `Copy-Item -Recurse nure-template\template\mise lb1`.
@@ -93,7 +93,7 @@ nure = { version = "0.3.0", asset_pattern = "nure-*.tar.gz", strip_components = 
 Якщо у вас уже є власний `mise.toml` і ви не копіюєте `template/mise`, підключіть пакунок через CLI:
 
 ```sh
-mise config set tool_alias.nure "github:beauloxe/typst-nure-template"
+mise config set tool_alias.nure "github:linerds/typst-nure-template"
 mise config set --type string env.TYPST_PACKAGE_PATH.value '{% if tools.nure is defined %}{{ tools.nure.path }}{% endif %}'
 mise config set --type bool env.TYPST_PACKAGE_PATH.tools true
 mise use "nure[asset_pattern=nure-*.tar.gz,strip_components=0]@0.3.0"
@@ -108,7 +108,7 @@ mise use "nure[asset_pattern=nure-*.tar.gz,strip_components=0]@0.3.0"
 ### Linux і macOS
 
 ```sh
-git clone --depth 1 -b v0.3.0 https://github.com/beauloxe/typst-nure-template.git ~/.local/share/typst/packages/local/nure/0.3.0
+git clone --depth 1 -b v0.3.0 https://github.com/linerds/typst-nure-template.git ~/.local/share/typst/packages/local/nure/0.3.0
 ```
 
 На macOS тека пакунків -- `~/Library/Application Support/typst/packages/local/nure/0.3.0`.
@@ -116,7 +116,7 @@ git clone --depth 1 -b v0.3.0 https://github.com/beauloxe/typst-nure-template.gi
 ### Windows
 
 ```powershell
-git clone --depth 1 -b v0.3.0 https://github.com/beauloxe/typst-nure-template.git "$env:APPDATA\typst\packages\local\nure\0.3.0"
+git clone --depth 1 -b v0.3.0 https://github.com/linerds/typst-nure-template.git "$env:APPDATA\typst\packages\local\nure\0.3.0"
 ```
 
 Версія в назві теки (`0.3.0`) має збігатися з `version` у `typst.toml` пакунка, інакше Typst його не завантажить. Для нової версії (наприклад, `0.3.1`) просто склонуйте відповідний тег у сусідню теку `0.3.1` -- старі роботи продовжать збиратися на `0.3.0`.

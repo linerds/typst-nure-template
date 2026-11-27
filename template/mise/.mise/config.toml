@@ -3,7 +3,7 @@ quiet = true
 lockfile = true
 
 [tool_alias]
-nure = "github:beauloxe/typst-nure-template"
+nure = "github:linerds/typst-nure-template"
 
 [tools]
 typst = "latest"
