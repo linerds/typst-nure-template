@@ -100,4 +100,14 @@ gender = "m"
 | [Історія змін](CHANGELOG.md) | Зміни в кожному релізі |
 | [Розробка](docs/development.md) | Структура репозиторію, тести, CI |
 
+## Для агентів ШІ
+
+[skills/nure-typst](skills/nure-typst/SKILL.md) -- скіл у форматі [Agent Skills](https://agentskills.io) для Claude Code, Codex, Gemini CLI та інших агентів: як зібрати роботу, правила розмітки, яких шаблон не виконає сам, і перевірка перед здачею. Встановити:
+
+```sh
+npx skills add linerds/typst-nure-template
+```
+
+або скопіювати теку `skills/nure-typst` у `~/.claude/skills/` (`~/.agents/skills/`) чи `.claude/skills/` проєкту.
+
 Потрібен Typst 0.15 або новіший (mise встановлює потрібну версію сам).
