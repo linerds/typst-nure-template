@@ -4,7 +4,7 @@
 
 #import "style/main.typ" as style
 #import "work.typ": work
-#import "parts/common.typ": dstu-bibliography, title-heading
+#import "parts/common.typ": dstu-bibliography, require-field, title-heading
 #import "parts/report/main.typ" as report
 #import "parts/cw.typ" as cw
 #import "parts/cw-v2.typ" as cw-v2
@@ -65,8 +65,16 @@
     content: task-list.at("content", default: []),
     graphics: task-list.at("graphics", default: []),
   )
-  cw.calendar-plan(w, calendar-plan.plan-table, approval-date: calendar-plan.at("approval-date", default: auto))
-  cw.abstract(w, keywords: abstract.keywords, abstract.text)
+  cw.calendar-plan(
+    w,
+    require-field(calendar-plan, "plan-table", "calendar-plan", "coursework"),
+    approval-date: calendar-plan.at("approval-date", default: auto),
+  )
+  cw.abstract(
+    w,
+    keywords: require-field(abstract, "keywords", "abstract", "coursework"),
+    require-field(abstract, "text", "abstract", "coursework"),
+  )
   cw.contents()
 
   doc
@@ -137,13 +145,13 @@
 
   cw-v2.title-page(w)
   cw-v2.task(w, source: task-list.at("source", default: []), content: task-list.at("content", default: []))
-  cw-v2.calendar-plan(w, calendar-plan.plan-table)
+  cw-v2.calendar-plan(w, require-field(calendar-plan, "plan-table", "calendar-plan", "coursework-v2"))
   cw-v2.abstract(
     w,
-    keywords: abstract.keywords,
+    keywords: require-field(abstract, "keywords", "abstract", "coursework-v2"),
     en-keywords: if abstract-en != none { abstract-en.at("keywords", default: none) },
-    abstract.text,
-    ..if abstract-en != none { (abstract-en.text,) },
+    require-field(abstract, "text", "abstract", "coursework-v2"),
+    ..if abstract-en != none { (require-field(abstract-en, "text", "abstract-en", "coursework-v2"),) },
   )
   cw-v2.contents()
 

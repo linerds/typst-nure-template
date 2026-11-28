@@ -11,6 +11,8 @@
   let author = w.authors.first()
   let head-mentor = require-work(w, "mentors", "cw.title-page").first()
   let head-degree = key-get(head-mentor, "degree")
+  let _ = require-work(w, "subject", "cw.title-page")
+  let title = require-work(w, "title", "cw.title-page")
 
   [
     #set align(center)
@@ -26,7 +28,7 @@
     ПОЯСНЮВАЛЬНА ЗАПИСКА\
     ДО КУРСОВОЇ РОБОТИ\
     з дисципліни: "#w.subject-name"\
-    Тема роботи: "#w.title"
+    Тема роботи: "#title"
 
     \ \ \
 
@@ -37,6 +39,8 @@
       #gender-form("author", gender: author.at("gender", default: none)) ст. гр. #group-form(author)
 
       \
+      // колонки вирівнюються лише кількістю рядків: без посади керівника ім'я
+      // стоїть у рядку «Керівник:», а в «Комісії» на кожного викладача свій рядок (`~` -- порожній)
       Керівник:#if head-degree != none [\ #head-degree]
 
       \
@@ -45,7 +49,7 @@
       \
       Комісія:\ #for m in w.mentors {
         let degree = key-get(m, "degree")
-        if degree != none [#degree\ ]
+        if degree != none [#degree\ ] else [~\ ]
       }
 
       #colbreak()
@@ -54,7 +58,7 @@
 
       #author.name
 
-      \ \
+      \ #if head-degree != none [\ ]
       #head-mentor.name
 
       \
@@ -83,6 +87,8 @@
   let course = require-field(author, "course", "author", "cw.task")
   let semester = require-field(author, "semester", "author", "cw.task")
   let full-name-gen = require-field(author, "full-name-gen", "author", "cw.task")
+  let _ = require-work(w, "subject", "cw.task")
+  let title = require-work(w, "title", "cw.task")
 
   {
     set par(first-line-indent: 0pt, justify: false)
@@ -119,7 +125,7 @@
 
     v(1.2em)
 
-    ruled-field(prefix: bold[\1. Тема роботи:], [#w.title.])
+    ruled-field(prefix: bold[\1. Тема роботи:], [#title.])
     v(0.6em)
 
     grid(

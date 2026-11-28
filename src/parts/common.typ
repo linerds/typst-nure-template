@@ -69,13 +69,18 @@
 }
 
 /// Підсумки документа для реферату: "N с., N табл., N рис., N джерел".
-/// Нульові значення пропускаються. Рахує різні процитовані джерела, тож не
-/// потребує show-правил і працює будь-де в документі.
+/// Нульові значення пропускаються. Рахує різні процитовані джерела, а з
+/// `dstu-bibliography(full: true)` -- усі записи переліку. Працює будь-де в документі.
 #let doc-stats() = context {
   let pages = counter(page).final().at(0)
   let images = query(figure.where(kind: image)).len()
   let tables = query(figure.where(kind: table)).len()
-  let bibs = query(cite).map(it => it.key).dedup().len()
+  let full-totals = query(<dstu-bib-total>)
+  let bibs = if full-totals.len() > 0 {
+    full-totals.map(it => it.value).sum()
+  } else {
+    query(cite).map(it => it.key).dedup().len()
+  }
 
   let counters = ()
   if pages != 0 { counters.push[#pages с.] }
@@ -109,6 +114,17 @@
 /// - key (function): Повертає рядок, за яким сортується елемент
 #let sort-keywords(keywords, key: it => it) = keywords.sorted(key: it => _uk-sort-key(key(it)))
 
+// Кількість записів у джерелі переліку: BibLaTeX -- рядки `@тип{`
+// (крім @string, @comment, @preamble), інакше -- ключі верхнього рівня YAML.
+#let _entry-count(source) = {
+  if type(source) == array { return source.map(_entry-count).sum(default: 0) }
+  let text = str(if type(source) == bytes { source } else { read(source, encoding: none) })
+  let entries = text
+    .matches(regex("(?m)^\s*@(\w+)\s*[{(]"))
+    .filter(m => lower(m.captures.first()) not in ("string", "comment", "preamble"))
+  if entries.len() > 0 { entries.len() } else { yaml(bytes(text)).len() }
+}
+
 #let csl-styles = (
   "3008": "../csl/dstu-3008-2015.csl",
   "8302": "../csl/dstu-8302-2015.csl",
@@ -132,6 +148,7 @@
 /// наступних рядків. Якщо новіший Typst зробить це зайвим -- приберіть
 /// повністю.
 #let dstu-bibliography(source, style: "3008", title: [Перелік джерел посилання], full: false) = {
+  assert(source != none, message: "dstu-bibliography: source is required, e.g. path(\"bibl.yml\")")
   let style = if type(style) == str {
     assert(
       style in csl-styles,
@@ -143,4 +160,6 @@
   show regex("^\\d+\\."): it => [#it#h(0.5cm)]
   show block: it => [#it.body#parbreak()]
   bibliography(source, title: title, style: style, full: full)
+  // для `doc-stats`: з `full: true` у переліку всі записи, а не лише процитовані
+  if full [#metadata(_entry-count(source)) <dstu-bib-total>]
 }

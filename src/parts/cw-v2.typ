@@ -243,6 +243,13 @@
   let keyword-pairs = if keywords.len() > 0 and type(keywords.first()) == array {
     keywords.map(pair => (uk: pair.at(0), en: pair.at(1)))
   } else if en-keywords != none {
+    assert(
+      en-keywords.len() == keywords.len(),
+      message: "cw-v2.abstract: en-keywords must have as many items as keywords ("
+        + str(keywords.len())
+        + "), got "
+        + str(en-keywords.len()),
+    )
     keywords.enumerate().map(((i, uk)) => (uk: uk, en: en-keywords.at(i)))
   } else {
     keywords.map(uk => (uk: uk))
