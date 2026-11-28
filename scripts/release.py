@@ -152,6 +152,15 @@ def main() -> None:
             (f"@vendor/nure:{old_ver}", f"@vendor/nure:{new_ver}"),
         ]
 
+    # only tracked files: an untracked draft must not slip into the release commit
+    for rel in run(["git", "ls-files", "skills/*.md"], cwd=root, capture=True).splitlines():
+        skill_doc = root / rel
+        if f"nure:{old_ver}" in skill_doc.read_text(encoding="utf-8"):
+            targets[skill_doc] = [
+                (f"@local/nure:{old_ver}", f"@local/nure:{new_ver}"),
+                (f"@vendor/nure:{old_ver}", f"@vendor/nure:{new_ver}"),
+            ]
+
     pending: dict[Path, str] = {}
     for path, reps in targets.items():
         pending[path] = render_replacements(path, reps)
@@ -161,10 +170,17 @@ def main() -> None:
     if changelog_content is not None:
         pending[changelog] = changelog_content
 
+    originals = {path: path.read_bytes() for path in pending}
     for path, content in pending.items():
         path.write_text(content, encoding="utf-8")
 
-    verify_compilation(root, new_ver)
+    try:
+        verify_compilation(root, new_ver)
+    except BaseException:  # also SystemExit from run() and Ctrl-C
+        for path, data in originals.items():
+            path.write_bytes(data)
+        print("error: compile check failed; version bump reverted", file=sys.stderr)
+        raise
 
     if args.no_commit:
         print("Updated files (--no-commit). Review with: git diff")
